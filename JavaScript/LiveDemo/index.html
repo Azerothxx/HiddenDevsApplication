@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kanban Board</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Kanban Board</h1>
+
+            <!-- SEARCH BAR -->
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Search..." />
+                <button
+                    id="clear-search"
+                    class="hidden"
+                    aria-label="Clear search"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div class="board">
+                <!-- LIST 1 -->
+                <div class="list" id="list1">
+                    <h2>To do</h2>
+                </div>
+
+                <!-- LIST 2 -->
+                <div class="list" id="list2">
+                    <h2>In Progress</h2>
+                </div>
+
+                <!-- LIST 3 -->
+                <div class="list" id="list3">
+                    <h2>Done</h2>
+                </div>
+            </div>
+
+            <!-- MODIFY BUTTONS -->
+            <div id="modify-btns-container">
+                <button class="modify-btn" id="create-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    Create
+                </button>
+                <button class="modify-btn" id="delete-btn">
+                    <i class="fa-solid fa-minus"></i>
+                    Delete
+                </button>
+                <button class="modify-btn" id="modify-btn">
+                    <i class="fa-solid fa-wrench"></i>
+                    Modify
+                </button>
+            </div>
+
+            <!-- TASK MODAL -->
+            <div id="task-modal" class="modal hidden">
+                <div class="modal-overlay"></div>
+
+                <div class="modal-content">
+                    <h3 id="modal-title">Create Task</h3>
+
+                    <form id="task-form">
+                        <label for="task-title-input">Task Name *</label>
+                        <input
+                            type="text"
+                            id="task-title-input"
+                            placeholder="Enter task name..."
+                            required
+                            maxlength="100"
+                        />
+
+                        <label for="task-category-input">Category</label>
+                        <input
+                            type="text"
+                            id="task-category-input"
+                            placeholder="e.g., Work, Personal, House Task"
+                            maxlength="50"
+                        />
+
+                        <label for="task-list-select">List</label>
+                        <select id="task-list-select">
+                            <option value="list1">To do</option>
+                            <option value="list2">In Progress</option>
+                            <option value="list3">Done</option>
+                        </select>
+
+                        <div class="modal-buttons">
+                            <button type="submit" class="btn-primary">
+                                Save
+                            </button>
+                            <button
+                                type="button"
+                                id="cancel-btn"
+                                class="btn-secondary"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
