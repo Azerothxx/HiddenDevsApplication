@@ -1,3 +1,4 @@
+// Various HTML DOM elements
 const startBtn = document.getElementById("start-btn");
 const quizScreen = document.getElementById("quiz-screen");
 const currentQuestionSpan = document.getElementById("current-question");
@@ -67,6 +68,7 @@ let score = 0;
 let answerDisabled = false;
 let quizCards = [];
 
+// HTML DOM elements init
 totalQuestionsSpan.textContent = quizQuestions.length;
 maxScoreSpan.textContent = quizQuestions.length;
 
@@ -75,77 +77,10 @@ startBtn.addEventListener("click", startQuiz);
 restartBtn.addEventListener("click", restartQuiz);
 
 // Functions
-function createQuizCard(questionData, index) {
-    const card = document.createElement("div");
-    card.classList.add("quiz-card");
-    card.dataset.index = index;
 
-    const questionText = document.createElement("h2");
-    questionText.classList.add("question-text");
-    questionText.textContent = questionData.question;
-
-    const answersContainer = document.createElement("div");
-    answersContainer.classList.add("answers-container");
-
-    questionData.answers.forEach((answer) => {
-        const button = document.createElement("button");
-        button.textContent = answer.text;
-        button.classList.add("answers-btn");
-        button.dataset.correct = answer.correct;
-        button.addEventListener("click", selectAnswer);
-        answersContainer.appendChild(button);
-    });
-
-    card.appendChild(questionText);
-    card.appendChild(answersContainer);
-
-    return card;
-}
-
-function preloadAllCards() {
-    cardsContainer.innerHTML = "";
-    quizCards = [];
-
-    quizQuestions.forEach((question, index) => {
-        const card = createQuizCard(question, index);
-        quizCards.push(card);
-        cardsContainer.appendChild(card);
-    });
-}
-
-function startQuiz() {
-    // Clear out any existing GIFs
-    document.querySelectorAll(".random-gif").forEach((gif) => gif.remove());
-
-    currentQuestionIndex = 0;
-    score = 0;
-    scoreSpan.textContent = score;
-
-    startScreen.classList.remove("active");
-    quizScreen.classList.add("active");
-
-    preloadAllCards();
-    showQuestion();
-}
-
-function showQuestion(isCorrect) {
-    answerDisabled = false;
-
-    const progressPercent = (currentQuestionIndex / quizQuestions.length) * 100;
-    currentQuestionSpan.textContent = currentQuestionIndex + 1;
-    progressBar.style.width = progressPercent + "%";
-
-    // Add random GIF if previous answer was incorrect
-    if (isCorrect === false) {
-        for (let index = 0; index < currentQuestionIndex; index++) {
-            addRandomGif();
-        }
-    }
-
-    // Activate the current card
-    quizCards[currentQuestionIndex].classList.add("active");
-}
-
+/*   
+    Shows randomly positioned gif, (not actually a random gif) 
+*/
 function addRandomGif() {
     const img = document.createElement("img");
     img.src =
@@ -161,6 +96,35 @@ function addRandomGif() {
     document.body.appendChild(img);
 }
 
+/*   
+    After effect update for dom elements
+*/
+function showResults() {
+    const percentage = (score / quizQuestions.length) * 100;
+
+    quizScreen.classList.remove("active");
+    resultScreen.classList.add("active");
+
+    finalScore.textContent = score;
+
+    if (percentage === 100)
+        resultsMessage.textContent =
+            "Perfect score you are a good man have some chicken 🍗.";
+    else if (percentage >= 80)
+        resultsMessage.textContent = "The voices are sane enough.";
+    else if (percentage >= 60)
+        resultsMessage.textContent = "You are teetering on insanity.";
+    else {
+        for (let index = 0; index < 10; index++) {
+            addRandomGif();
+        }
+        resultsMessage.textContent = "Ť̴̟̗̲̰̭̦̰̠͋́̀͆̆͐̏̈́͗̇̕̕͝h̶̤̩̘̣͍͋̀̾̆́̓͜ͅe̴̛̛̫͙̥͕̟͖͉̹̜͖̩̲̮̖̐̄̅̐͜ ̶̘̗̍͆̆͑͆̍̂͋͠͠v̴͔͈̠̥̤̙̻̠̱̫͔͋̒͑̑̿̚̕͝o̷͎̪̱͂͆͛̇̊͝ị̸̛̲͆͌̈́͒̀̎̄͑̈́̀͂͒̏͘c̴͕͎͋͘ë̸̛̗̳́̽̍̈́̑̓̈́̃̊̉̈́̎͠s̷̤̽̉̓͆̀̓͘͠ ̶̡̛̼̘̺͙͎̻̭̳̟̣̥͖͓̭̉̀̽͆͊̈́̑̈́̑̎͝ä̷̘̫͙̽̄̿̓͒̃̋͠r̵̦̗͓̯̣͕̣̞̟̦̬̣̎̆̐̅͆͌ȩ̴̧̢̲͖̲̲̣͇̪̱̺̓̐̽̔̃̈́ ̸̨̧̳̙͔͓͎̩̮̺̻͍͙̲͑͊͋̔i̵̧̟̼̙̫̎́̀͋͆́̐̚̕͠n̴̨̼̤͚͔̺͕͉͉̳̱̊͝ş̵̙̫͈͍̩̩͆́͊͑̽̆̂͂̍͐̕̕͘͜ī̷͈̏̊͌̈́́̌̈́̋̐̂̀̔̕d̶̮̞̰͍̪̘̄͛̊̈́̈ẹ̸͎̘̮͓̯̪̼̩̺̃̂̌̉̈́̈͑̄͝͝ͅ ̴̘̩̯͇̞̦̠̪̤͆̑͒̉̍̋̌̚͘͘͝m̶̺̤͙͉̺̘͈͈̏̃̄̆͋͑̈́͒̃̆̀̓͝ỹ̵̡͖͇̩͓̩̃̽̑̚͝͝ ̶̛̮̭̪͖̫̫̞̦̬̰̼̠̆͆͆̈̒̋́̍̇̆̀̕͜s̷̛̞̠̈́͛͊k̷̨̜͇͍̈́̊̓̀̿̃̍̑̐̄̊̒̕͝ì̶̧̛̝̥̞̰͕̅̅͛̌͑̈̾͌̆̾͂͝ͅn̶̢̛̥͖̗̺̰̭͇̓͐̐͂̏̌͂̇͋̃̚̚͠͠.";
+    }
+}
+
+/*   
+    Plays effects for an answer element and updates state
+*/
 function selectAnswer(event) {
     if (answerDisabled) return;
     answerDisabled = true;
@@ -197,27 +161,80 @@ function selectAnswer(event) {
     }, 1000);
 }
 
-function showResults() {
-    const percentage = (score / quizQuestions.length) * 100;
+/*   
+    Creates a card div and will place them in the div container with id/classs "cards-container"
+    Houses 2 other elements text and the answers container     
+*/
+function createQuizCard(questionData, index) {
+    const card = document.createElement("div");
+    card.classList.add("quiz-card");
+    card.dataset.index = index;
 
-    quizScreen.classList.remove("active");
-    resultScreen.classList.add("active");
+    const questionText = document.createElement("h2");
+    questionText.classList.add("question-text");
+    questionText.textContent = questionData.question;
 
-    finalScore.textContent = score;
+    const answersContainer = document.createElement("div");
+    answersContainer.classList.add("answers-container");
 
-    if (percentage === 100)
-        resultsMessage.textContent =
-            "Perfect score you are a good man have some chicken 🍗.";
-    else if (percentage >= 80)
-        resultsMessage.textContent = "The voices are sane enough.";
-    else if (percentage >= 60)
-        resultsMessage.textContent = "You are teetering on insanity.";
-    else {
-        for (let index = 0; index < 10; index++) {
+    // Loops through questionData answers, each to create a button for
+    questionData.answers.forEach((answer) => {
+        const button = document.createElement("button");
+        button.textContent = answer.text;
+        button.classList.add("answers-btn");
+        button.dataset.correct = answer.correct;
+        button.addEventListener("click", selectAnswer);
+        answersContainer.appendChild(button);
+    });
+
+    card.appendChild(questionText);
+    card.appendChild(answersContainer);
+
+    return card;
+}
+
+/*   
+    Updates progress elements, condition check if to show another gif, shows next card
+*/
+function showQuestion(isCorrect) {
+    answerDisabled = false;
+
+    const progressPercent = (currentQuestionIndex / quizQuestions.length) * 100;
+    currentQuestionSpan.textContent = currentQuestionIndex + 1;
+    progressBar.style.width = progressPercent + "%";
+
+    // Will add a randomly positioned gif for every wrong answer
+    if (isCorrect === false) {
+        for (let index = 0; index < currentQuestionIndex; index++) {
             addRandomGif();
         }
-        resultsMessage.textContent = "Ť̴̟̗̲̰̭̦̰̠͋́̀͆̆͐̏̈́͗̇̕̕͝h̶̤̩̘̣͍͋̀̾̆́̓͜ͅe̴̛̛̫͙̥͕̟͖͉̹̜͖̩̲̮̖̐̄̅̐͜ ̶̘̗̍͆̆͑͆̍̂͋͠͠v̴͔͈̠̥̤̙̻̠̱̫͔͋̒͑̑̿̚̕͝o̷͎̪̱͂͆͛̇̊͝ị̸̛̲͆͌̈́͒̀̎̄͑̈́̀͂͒̏͘c̴͕͎͋͘ë̸̛̗̳́̽̍̈́̑̓̈́̃̊̉̈́̎͠s̷̤̽̉̓͆̀̓͘͠ ̶̡̛̼̘̺͙͎̻̭̳̟̣̥͖͓̭̉̀̽͆͊̈́̑̈́̑̎͝ä̷̘̫͙̽̄̿̓͒̃̋͠r̵̦̗͓̯̣͕̣̞̟̦̬̣̎̆̐̅͆͌ȩ̴̧̢̲͖̲̲̣͇̪̱̺̓̐̽̔̃̈́ ̸̨̧̳̙͔͓͎̩̮̺̻͍͙̲͑͊͋̔i̵̧̟̼̙̫̎́̀͋͆́̐̚̕͠n̴̨̼̤͚͔̺͕͉͉̳̱̊͝ş̵̙̫͈͍̩̩͆́͊͑̽̆̂͂̍͐̕̕͘͜ī̷͈̏̊͌̈́́̌̈́̋̐̂̀̔̕d̶̮̞̰͍̪̘̄͛̊̈́̈ẹ̸͎̘̮͓̯̪̼̩̺̃̂̌̉̈́̈͑̄͝͝ͅ ̴̘̩̯͇̞̦̠̪̤͆̑͒̉̍̋̌̚͘͘͝m̶̺̤͙͉̺̘͈͈̏̃̄̆͋͑̈́͒̃̆̀̓͝ỹ̵̡͖͇̩͓̩̃̽̑̚͝͝ ̶̛̮̭̪͖̫̫̞̦̬̰̼̠̆͆͆̈̒̋́̍̇̆̀̕͜s̷̛̞̠̈́͛͊k̷̨̜͇͍̈́̊̓̀̿̃̍̑̐̄̊̒̕͝ì̶̧̛̝̥̞̰͕̅̅͛̌͑̈̾͌̆̾͂͝ͅn̶̢̛̥͖̗̺̰̭͇̓͐̐͂̏̌͂̇͋̃̚̚͠͠.";
     }
+
+    // Activate the current card
+    quizCards[currentQuestionIndex].classList.add("active");
+}
+
+function startQuiz() {
+    // Clear out any existing GIFs
+    document.querySelectorAll(".random-gif").forEach((gif) => gif.remove());
+
+    currentQuestionIndex = 0;
+    score = 0;
+    scoreSpan.textContent = score;
+
+    startScreen.classList.remove("active");
+    quizScreen.classList.add("active");
+
+    cardsContainer.innerHTML = "";
+    quizCards = [];
+
+    quizQuestions.forEach((question, index) => {
+        const card = createQuizCard(question, index);
+        quizCards.push(card);
+        cardsContainer.appendChild(card);
+    });
+
+    showQuestion();
 }
 
 function restartQuiz() {
