@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Document title</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, intial-scale=1.0" />
+        <title>Quiz Game</title>
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
-        <h1>Test Javascript</h1>
+        <div class="container">
+            <div class="screen active" id="start-screen">
+                <h1>Quiz Time</h1>
+                <p>Test your knowledge with these fun questions!</p>
+                <button id="start-btn">Start Quiz</button>
+            </div>
 
-        <script src="main.js"></script>
+            <div class="screen" id="quiz-screen">
+                <div class="quiz-info-bar">
+                    <p>
+                        Question
+                        <span id="current-question">1</span>
+                        of
+                        <span id="total-questions">5</span>
+                    </p>
+                    <p>
+                        Score
+                        <span id="score">0</span>
+                    </p>
+                </div>
+
+                <div class="cards-container" id="cards-container">
+                    <!-- Quiz cards will be preloaded here -->
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+
+            <div class="screen" id="result-screen">
+                <h1>Quiz Results</h1>
+                <div class="results-info">
+                    <p>
+                        You scored
+                        <span id="final-score">0</span>
+                        out of
+                        <span id="max-score">5</span>
+                    </p>
+                </div>
+                <div id="results-message">Good Job!</div>
+                <button id="restart-btn">Restart Quiz</button>
+            </div>
+        </div>
+        <script src="script.js"></script>
     </body>
 </html>
