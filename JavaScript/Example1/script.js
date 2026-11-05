@@ -1,3 +1,6 @@
+// Connected Discord-GitHub
+// Disc (Azerothxx) Roblox (Azerothxx)
+
 // Various HTML DOM elements
 const startBtn = document.getElementById("start-btn");
 const quizScreen = document.getElementById("quiz-screen");
