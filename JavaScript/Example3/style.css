@@ -1,0 +1,96 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+* {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	font-family: "Poppins", sans-serif;
+}
+
+body {
+	background-color: #fdf0d5;
+	color: #333;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.container{
+	background-color: red;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	width: 90%;
+	max-width: 400px;
+	text-align: center;
+} 
+
+h1{
+	margin-bottom: 20px;
+	color: #fdf0d5;
+	letter-spacing: 2px;
+}
+
+.input-container {
+	display: flex;
+	margin-bottom: 20px;
+	flex-direction: column;
+	gap: 10px
+}
+
+input {
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid #70000d;
+}
+
+button {
+	padding: 10px;
+	border: none;
+	border-radius: 4px;
+	background-color: #70000d;
+	color: #fdf0d5;
+	cursor: pointer;
+	transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+	background-color: #fdf0d5;
+	color: red;
+}
+
+#bookmark-list {
+	list-style: none;
+	padding: 0;
+}
+
+#bookmark-list li {
+	background-color: #fdf0d5;
+	padding: 10px;
+	border-radius: 4px;
+	border: 1px solid transparent;
+	margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#bookmark-list a {
+	color: #70000d;
+	text-decoration: none;	
+}
+
+#bookmark-list button {
+	background-color: #c1121f;
+	border: 1px solid transparent;
+	padding: 5px 1px;
+	border-radius: 4px;
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;	
+}
+
+#bookmark-list:hover {
+	background-color: #fdf0d5;
+	color: #70000d;
+	border-color: #c1121f;
+}
